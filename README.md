@@ -4,7 +4,7 @@
 
 ## 安全警告
 
-> **该服务默认监听 `0.0.0.0:8080`，且不提供鉴权或 TLS。任何能够访问该端口的人都可以修改服务器 SSH 端口。**
+> **该服务默认监听 `0.0.0.0:18881`，且不提供鉴权或 TLS。任何能够访问该端口的人都可以修改服务器 SSH 端口。**
 
 仅应在可信网络中运行，并通过云安全组、防火墙或反向代理限制调用来源。修改前必须提前放行新的 SSH 端口，否则当前 SSH 会话断开后可能无法重新连接。
 
@@ -51,7 +51,7 @@ sudo systemctl enable --now config-api
 
 ```bash
 systemctl status config-api
-curl http://127.0.0.1:8080/healthz
+curl http://127.0.0.1:18881/healthz
 ```
 
 ## 使用
@@ -66,7 +66,7 @@ sudo ufw allow 18822/tcp
 调用接口：
 
 ```bash
-curl "http://服务器地址:8080/config/ssh?port=18822"
+curl "http://服务器地址:18881/config/ssh?port=18822"
 ```
 
 成功响应：
@@ -87,7 +87,7 @@ curl "http://服务器地址:8080/config/ssh?port=18822"
 
 | 环境变量 | 默认值 | 说明 |
 | --- | --- | --- |
-| `LISTEN_ADDR` | `0.0.0.0:8080` | HTTP 监听地址 |
+| `LISTEN_ADDR` | `0.0.0.0:18881` | HTTP 监听地址 |
 | `SSHD_CONFIG_PATH` | `/etc/ssh/sshd_config` | sshd 主配置文件 |
 | `SSHD_BINARY` | 自动查找 | sshd 可执行文件路径 |
 
@@ -98,7 +98,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart config-api
 ```
 
-更安全的监听设置是将 `LISTEN_ADDR` 改为 `127.0.0.1:8080`，再通过 SSH 隧道或受控反向代理调用。
+更安全的监听设置是将 `LISTEN_ADDR` 改为 `127.0.0.1:18881`，再通过 SSH 隧道或受控反向代理调用。
 
 ## 故障恢复
 

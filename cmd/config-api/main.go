@@ -18,7 +18,7 @@ func (commandRunner) CombinedOutput(name string, args ...string) ([]byte, error)
 }
 
 func main() {
-	listenAddr := envOrDefault("LISTEN_ADDR", "0.0.0.0:8080")
+	listenAddr := envOrDefault("LISTEN_ADDR", "0.0.0.0:18881")
 	configPath := envOrDefault("SSHD_CONFIG_PATH", "/etc/ssh/sshd_config")
 	sshd := os.Getenv("SSHD_BINARY")
 	if sshd == "" {
