@@ -1,7 +1,10 @@
 /bin/
+/dist/
+/.gocache/
 /config-api
 *.log
 .DS_Store
 .idea/
 .vscode/
 dist/
+*.tar.gz

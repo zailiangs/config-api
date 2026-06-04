@@ -41,11 +41,45 @@ GET /config/ssh?port=18822
 git clone https://github.com/zailiangs/config-api.git
 cd config-api
 make check
-sudo install -m 0755 bin/config-api /usr/local/sbin/config-api
-sudo install -m 0644 deploy/config-api.service /etc/systemd/system/config-api.service
-sudo systemctl daemon-reload
-sudo systemctl enable --now config-api
 ```
+
+### 离线打包
+
+在有 Go 环境的机器上打包：
+
+```bash
+make package-linux-amd64
+```
+
+ARM64 服务器则使用：
+
+```bash
+make package-linux-arm64
+```
+
+产物位于：
+
+```text
+dist/config-api-linux-amd64.tar.gz
+dist/config-api-linux-arm64.tar.gz
+```
+
+### 离线安装
+
+将压缩包拷到目标服务器后，只需要：
+
+```bash
+tar -xzf config-api-linux-amd64.tar.gz
+cd config-api-linux-amd64
+sudo ./install.sh
+```
+
+`install.sh` 会自动完成：
+
+1. 安装二进制到 `/usr/local/sbin/config-api`
+2. 安装 systemd unit 到 `/etc/systemd/system/config-api.service`
+3. 执行 `systemctl daemon-reload`
+4. 执行 `systemctl enable --now config-api`
 
 检查状态：
 
@@ -53,6 +87,16 @@ sudo systemctl enable --now config-api
 systemctl status config-api
 curl http://127.0.0.1:18881/healthz
 ```
+
+### 卸载
+
+离线包目录内直接执行：
+
+```bash
+sudo ./uninstall.sh
+```
+
+它会停止并禁用服务，然后删除二进制和 systemd unit。
 
 ## 使用
 
@@ -114,15 +158,6 @@ sudo systemctl restart ssh
 
 ```bash
 journalctl -u config-api
-```
-
-## 卸载
-
-```bash
-sudo systemctl disable --now config-api
-sudo rm /etc/systemd/system/config-api.service
-sudo rm /usr/local/sbin/config-api
-sudo systemctl daemon-reload
 ```
 
 ## 开发
