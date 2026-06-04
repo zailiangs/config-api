@@ -1,0 +1,21 @@
+[Unit]
+Description=Config API for SSH server settings
+Documentation=https://github.com/zailiangs/config-api
+After=network-online.target ssh.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=LISTEN_ADDR=0.0.0.0:8080
+ExecStart=/usr/local/sbin/config-api
+Restart=on-failure
+RestartSec=5s
+ProtectSystem=strict
+ReadWritePaths=/etc/ssh
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

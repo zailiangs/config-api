@@ -1,0 +1,7 @@
+/bin/
+/config-api
+*.log
+.DS_Store
+.idea/
+.vscode/
+dist/
