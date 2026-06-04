@@ -36,7 +36,7 @@ package-linux-amd64: build-linux-amd64
 	cp packaging/uninstall.sh $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-amd64/uninstall.sh
 	cp README.md $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-amd64/README.md
 	chmod 0755 $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-amd64/install.sh $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-amd64/uninstall.sh
-	tar -C $(PACKAGE_STAGING) -czf $(DIST_DIR)/$(BINARY_NAME)-linux-amd64.tar.gz $(BINARY_NAME)-linux-amd64
+	COPYFILE_DISABLE=1 tar -C $(PACKAGE_STAGING) -czf $(DIST_DIR)/$(BINARY_NAME)-linux-amd64.tar.gz $(BINARY_NAME)-linux-amd64
 
 package-linux-arm64: build-linux-arm64
 	mkdir -p $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-arm64
@@ -46,7 +46,7 @@ package-linux-arm64: build-linux-arm64
 	cp packaging/uninstall.sh $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-arm64/uninstall.sh
 	cp README.md $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-arm64/README.md
 	chmod 0755 $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-arm64/install.sh $(PACKAGE_STAGING)/$(BINARY_NAME)-linux-arm64/uninstall.sh
-	tar -C $(PACKAGE_STAGING) -czf $(DIST_DIR)/$(BINARY_NAME)-linux-arm64.tar.gz $(BINARY_NAME)-linux-arm64
+	COPYFILE_DISABLE=1 tar -C $(PACKAGE_STAGING) -czf $(DIST_DIR)/$(BINARY_NAME)-linux-arm64.tar.gz $(BINARY_NAME)-linux-arm64
 
 clean:
 	rm -rf bin $(DIST_DIR) .gocache
